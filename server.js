@@ -1,14 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
+
+// Load env variables FIRST
+dotenv.config();
+
 const connectDB = require("./config/db");
 const Contact = require("./models/Contact");
 
-// Load env variables
-dotenv.config();
-console.log("MONGO_URI value:", process.env.MONGO_URI);
-
-// Connect MongoDB
+// Connect to MongoDB
 connectDB();
 
 const app = express();
@@ -31,25 +31,25 @@ app.post("/contact", async (req, res) => {
     const newContact = new Contact({
       name,
       email,
-      message
+      message,
     });
 
     await newContact.save();
 
     res.json({
       success: true,
-      message: "Message saved successfully"
+      message: "Message saved successfully",
     });
   } catch (error) {
     console.error(error);
     res.status(500).json({
       success: false,
-      message: "Server error"
+      message: "Server error",
     });
   }
 });
 
 // Start server
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
