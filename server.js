@@ -6,6 +6,7 @@ const Contact = require("./models/Contact");
 
 // Load env variables
 dotenv.config();
+console.log("MONGO_URI value:", process.env.MONGO_URI);
 
 // Connect MongoDB
 connectDB();
